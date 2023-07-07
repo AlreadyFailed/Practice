@@ -1,0 +1,48 @@
+# 两数相加
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // 定义两个指针，指向两个单链表的第一个节点
+        ListNode head1 = l1;
+        ListNode head2 = l2;
+        // 开始扫描，当扫描结束时，链表1的next指针指向空
+        while(head1 != null){
+            // 如果链表2还有元素时，将链表1和链表2的值相加 
+            if(head2 != null){
+                head1.val += head2.val;
+	// 将链表2的指针后移
+                head2 = head2.next;
+            }
+            // 如果链表1比链表2短，那么剩下的数都链到链表的末尾，同时退出扫描
+            if(head1.next == null && head2 != null){
+                head1.next = head2;
+                break;
+            }
+            // 链表1的指针后移
+            head1 = head1.next;            
+        }
+        // 进行进位判断
+        merge(l1);
+        // 返回结果链表
+        return l1;            
+    }
+
+    // 对加和后的链表进行进位判断
+    public void merge(ListNode head){
+        // 判断链表的合法性
+        while(head != null){
+            // 如果当前值大于9，则开始进位。
+            if(head.val > 9){
+                head.val %= 10;
+	// 如果指针已经移到末尾，则需要添加一个新节点
+                if(head.next == null){
+                    head.next = new ListNode(0);
+                }
+	// 将后一个节点的值加1
+                head.next.val += 1;
+            }
+            // 后移指针
+            head = head.next;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+# 无重复最长子串
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        // 定义左右指针和最长字符串长度
+        int left = 0; 
+        int right = 0;
+        int maxWindowLength = 0;
+
+        // 保存子串的HashSet
+        Set<Character> windowSet = new HashSet<>();
+
+        // 开始扫描，当扫描结束，必定会有一个指针来到字符串的末尾
+        while(left < s.length() && right < s.length()){
+
+            // 判断HashSet中是否有重复字符
+            if(windowSet.contains(s.charAt(right))){
+                // 如果有重复字符，则开始从头删除当前已存入的字符，直到没有重复字符 
+                windowSet.remove(s.charAt(left));
+                // 左指针右移 
+                left++;
+            }else{
+	// 没有重复字符，则一直添加字符到HashSet中，并且右指针右移
+                windowSet.add(s.charAt(right));
+                right++;
+            }
+            // 计算当前的子串长度，并更新最长子串的长度
+            int currentWindowLength = right - left;
+            maxWindowLength = Math.max(currentWindowLength, maxWindowLength);
+        }
+        // 返回长度 
+        return maxWindowLength;
+    }
+}
