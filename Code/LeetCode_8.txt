@@ -1,0 +1,34 @@
+# 字符串转整数
+
+class Solution {
+    public int myAtoi(String s) {
+        // 声明结果变量，开始字符下标，符号位
+        long ans = 0L;
+        int start = 0;
+        int sign = 1;
+        // 去除头部空格，如果里面没有字符则返回0
+        while(start < s.length() && s.charAt(start) == ' '){
+            start += 1;
+        }
+        if(start == s.length()) return 0;
+
+        // 判断符号位
+        if(s.charAt(start) == '-') {
+            sign = -1;
+            start++;
+        }else if(s.charAt(start) == '+') {
+            start++;
+        }
+
+        // 开始扫描
+        for(int i = start; i < s.length() && Character.isDigit(s.charAt(i)); i++){
+            // 结果值每次乘以10，然后加上当前字符-0（字符转整型）的结果，最后乘以符号位
+            ans = ans * 10 + sign * (s.charAt(i) - '0');
+            // 判断边界
+            if(ans > 0 && ans > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            if(ans < 0 && ans <= Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        }
+        // 将结果强转为int，并返回
+        return (int)ans;
+    }
+}

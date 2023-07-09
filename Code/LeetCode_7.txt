@@ -1,0 +1,27 @@
+# N字形变换
+
+class Solution {
+    public int reverse(int x) {
+        // 定义边界数和结果值
+        int ans = 0;
+        int max = 214748364;
+        // 开始扫描
+        while(x != 0){
+            // 声明一个变量，用于保存末尾数
+            int lastDigit = x % 10;
+
+            // 判断边界
+            if(ans > max || (ans == max && lastDigit > 7)){
+                return 0;
+            }
+            if(ans < -max || (ans == max && lastDigit < -7)){
+                return 0;
+            }
+
+            // 计算结果
+            ans = ans * 10 + lastDigit;
+            x /= 10;
+        }
+        return ans;
+    }
+}
