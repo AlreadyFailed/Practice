@@ -1,0 +1,27 @@
+# 罗马数转整数
+
+class Solution {
+    public int romanToInt(String s) {
+        // 声明一个对象，保存罗马数对应的值
+        Map<Character, Integer> symbolValues = new HashMap<Character, Integer>() {{
+            put('I', 1);
+            put('V', 5);
+            put('X', 10);
+            put('L', 50);
+            put('C', 100);
+            put('D', 500);
+            put('M', 1000);
+        }};
+        int rst = 0;
+        // 扫描罗马数，如果当前罗马数大于后一个罗马数，则用临时变量加上对应值
+        for(int i = 0; i < s.length(); i++){
+            int curVal = symbolValues.get(s.charAt(i));
+            if(i + 1 < s.length() && curVal < symbolValues.get(s.charAt(i+1))){
+                rst -= curVal;
+            }else{
+                rst += curVal;
+            }
+        }
+        return rst;
+    }
+}

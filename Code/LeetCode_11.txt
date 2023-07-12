@@ -1,0 +1,26 @@
+# 盛水最多的容器
+
+class Solution {
+    public int maxArea(int[] height) {
+        // 声明左右指针和最大面积
+        int left = 0;
+        int right = height.length - 1;
+        int maxArea = 0;
+        // 开始扫描
+        while(left < right){
+            // 计算宽
+            int width = right - left;
+            // 计算面积
+            int tempArea = width * Math.min(height[left], height[right]);
+            // 更新最大面积
+            maxArea = Math.max(maxArea, tempArea);
+            // 判断高，小的一边移动指针
+            if(height[left] < height[right]){
+                left ++;
+            }else{
+                right--;
+            }
+        }
+        return maxArea;
+    }
+}

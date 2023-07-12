@@ -1,0 +1,23 @@
+# 回文数
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        int tempX = x;
+        int newX = 0;
+        // 如果是负数，直接返回false
+        if(x < 0){
+            return false;
+        }
+        // 对该数进行取模和除10运算
+        while(tempX > 0){
+            newX = newX * 10 + tempX % 10;
+            tempX /= 10;
+        }
+        // 相等则为真，不等则为假
+        if(newX == x){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}

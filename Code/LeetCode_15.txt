@@ -1,0 +1,61 @@
+# 三数之和
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        // 创建一个二维结果数组。
+        List<List<Integer>> rst = new ArrayList<>();
+        // 如果给定数组长度小于三，则直接返回
+        if(nums.length < 3){
+            return rst;
+        }
+        // 对该数组进行升序排列。
+        Arrays.sort(nums);
+        // 开始扫描，当前扫描用于对i的控制
+        for(int i = 0; i < nums.length; i++){
+            int sum = 0;
+            // 跳过重复数字
+            if(i > 0 && nums[i] == nums[i-1]){
+                continue;
+            }
+            // 如果i下标元素已经大于0，则表明已经没有满足条件的三元组
+            if(nums[i] > 0){
+                return rst;
+            }
+            // 创建一个临时数组，用于保存符合条件的三元组
+            List<Integer> oneRst = new ArrayList<>();
+            // 创建左右下标，分别是i下标加1和末尾下标
+            int L = i + 1;
+            int R = nums.length - 1;
+            // 二层扫描，用于对左右下标的控制
+            while(L < R){
+	// 对元素进行判断，如果结果小于0，则移动左下标，反之移动右下标
+                sum = nums[i] + nums[L] + nums[R];
+                if(sum < 0){
+                    L++;
+                }else if(sum > 0){
+                    R--;
+                }else{
+	    // 如果符合条件，则将i，L，R小标对应的元素追加到，临时数组中去
+                    oneRst.add(nums[i]);
+                    oneRst.add(nums[L]);
+                    oneRst.add(nums[R]);
+	    // 再将临时数组，追加到二维结果数组中
+                    rst.add(oneRst);
+	    // 重置临时数组
+                    oneRst = new ArrayList<>();
+	    // 对左右下标元素进行去重判断。
+                    while(L < R && nums[L] == nums[L+1]){
+                        L++;
+                    }
+                    while(L < R && nums[R] == nums[R-1]){
+                        R--;
+                    }
+	    // 如果都不重复，则将左右下标进行中心靠拢。
+                    L++;
+                    R--;      
+                }
+            }
+        }
+        return rst;
+    }
+}

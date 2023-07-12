@@ -1,0 +1,24 @@
+# 整数转罗马数
+
+class Solution {
+    public String intToRoman(int num) {
+        // 声明两个数组，分别保存罗马数和罗马数对应的值
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        // 再声明一个数组，用于保存罗马数
+        StringBuilder rst = new StringBuilder();
+        int index = 0;
+
+        // 开始扫描
+        while(num > 0){
+            // 如果给定的整数大于当前下标对应的罗马数，则将该罗马数存入数组
+            if(num >= values[index]){
+                rst.append(symbols[index]);
+                num -= values[index];
+            }else{
+                index++;
+            }
+        }
+        return rst.toString();
+    }
+}
